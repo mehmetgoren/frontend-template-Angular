@@ -1,0 +1,109 @@
+<h3 class="first"><span style="color: #365073; margin: 15px; font-size: 32px;">Menu Descriptions</span></h3>
+
+<p-growl [value]="msgs"></p-growl>
+
+<div style="margin-top:5px;margin-right:50px;">
+    <p-dataTable [value]="menus" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]" [responsive]="true"
+        [stacked]="stacked" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+        <p-header>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><button type="button" pButton icon="ui-icon-add" (click)="addNewRecord()" label="Add New Record"></button></div>
+                <div class="ui-grid-col-10">Menus</div>
+            </div>
+        </p-header>
+        <p-footer></p-footer>
+
+        <p-column header="Order" [style]="{'width':'10%', 'max-width':'30px'}">
+            <ng-template pTemplate let-i="rowIndex">
+                <div style="text-align: center">{{i + 1}}</div>
+            </ng-template>
+        </p-column>
+
+        <p-column field="Name" header="Name" [filter]="true" [sortable]="true"> </p-column>
+        <p-column field="Controller" header="Controller" [filter]="true" [sortable]="true"></p-column>
+        <p-column field="Action" header="Action" [filter]="true" [sortable]="true"></p-column>
+        <p-column field="Route" header="Route" [filter]="true" [sortable]="true"></p-column>
+        <p-column field="OrderNum" header="Order Number" [filter]="true" [sortable]="true"></p-column>
+        <p-column field="Visible" header="Visible" [filter]="true" [sortable]="true"></p-column>
+        <p-column field="Image" header="Image" [filter]="true" [sortable]="true"></p-column>
+        <p-column field="ParentName" header="Parent Menu" [filter]="true" [sortable]="true"></p-column>
+    </p-dataTable>
+ 
+</div>
+
+
+<p-dialog header="Menu" responsive="true" [(visible)]="dialogVisible" modal="true" closeOnEscape="true" width="613">
+
+    <form [formGroup]="myForm" style="height: 350px;">
+        <div class="ui-fluid">
+            <div class="ui-g">
+                <div class="ui-g-12">
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Parent Menu</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <p-dropdown [(ngModel)]="selected.ParentId" [options]="menuSelecItems" [filter]="true" [style]="{'width':'100%'}" [formControl]="myForm.controls['ParentId']"></p-dropdown>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Menu</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <input pInputText [(ngModel)]="selected.Name" [formControl]="myForm.controls['Name']" />
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Controller</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <input pInputText [(ngModel)]="selected.Controller" [formControl]="myForm.controls['Controller']" />
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Action</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <input pInputText [(ngModel)]="selected.Action" [formControl]="myForm.controls['Action']" />
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Route</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <input pInputText [(ngModel)]="selected.Route" [formControl]="myForm.controls['Route']" />
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Order Number</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <input type="number" pInputText [(ngModel)]="selected.OrderNum" [formControl]="myForm.controls['OrderNum']" />
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Visible</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <p-checkbox binary="true" [(ngModel)]="selected.Visible" [formControl]="myForm.controls['Visible']"></p-checkbox>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Image</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <input pInputText [(ngModel)]="selected.Image" [formControl]="myForm.controls['Image']" />
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <button type="button" pButton (click)="save()" icon="ui-icon-save" label="Save" [disabled]="!myForm.valid"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+</p-dialog>

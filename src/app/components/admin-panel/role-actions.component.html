@@ -1,0 +1,50 @@
+<h3 class="first"><span style="color: #365073; margin: 15px; font-size: 32px;">Web Api Authorization</span></h3>
+
+<p-growl [value]="msgs" [life]="30000"></p-growl>
+
+<div class="Container100 ui-fluid">
+    <div class="ContainerIndent">
+        <div class="Card ShadowEffect">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3"><button pButton type="button" label="Save" icon="ui-icon-save" (click)="onSave()" [disabled]="!roleActions"></button>
+                    </div>
+                    <div class="ui-grid-col-3"><button pButton type="button" label="Delete" icon="ui-icon-delete" class="orange-btn" (click)="onDeleteUnused()"></button></div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3">
+                        <p-panel header="Roles" [toggleable]="false">
+                            <div class="ui-grid-row" *ngFor="let role of roles;">
+                                <div class="ui-grid-col-1"><p-radioButton name="group1" [value]="role.Id.toString()" [(ngModel)]="selectedValue" (click)="onRoleChanged(role)"></p-radioButton>
+                                </div>
+                                <div class="ui-grid-col-11"><label class="ui-widget">{{role.Name}}</label>
+                                </div>
+                            </div>
+                        </p-panel>
+
+
+                    </div>
+                    <div class="ui-grid-col-9">
+                        <p-panel header="Web Api Actions">
+                            <p-treeTable [value]="roleActions" *ngIf="roleActions">
+                                <p-header>Controller List</p-header>
+
+                                <p-column header="Action">
+                                    <ng-template pTemplate let-node="rowData">
+                                        <label class="ui-widget">{{node.label}}</label>
+                                    </ng-template>
+                                </p-column>
+                                <p-column header="Enable">
+                                    <ng-template pTemplate let-node="rowData">
+                                        <p-checkbox binary="true" [(ngModel)]="node.checked" (onChange)="onNodeChacked(node)"></p-checkbox>
+                                    </ng-template>
+                                </p-column>
+                            </p-treeTable>
+                        </p-panel>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

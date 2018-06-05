@@ -1,0 +1,31 @@
+<p-growl [value]="msgs"></p-growl>
+<div class="login-body" style="height: 100%; width: 100%;position: fixed;">
+    <form method="post">
+    <div class="card login-panel ui-fluid">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1 style="text-decoration: none; color: #666; font-weight: 400; text-align: center; display: inline-block; opacity: 0.6; transition: opacity ease 0.5s;">Welcome</h1>
+            </div>
+            <div class="ui-g-12">
+                <span class="md-inputfield">
+                    <input type="text" autocomplete="off" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}" pInputText>
+                    <label>Username</label>
+                </span>
+            </div>
+            <div class="ui-g-12">
+                <span class="md-inputfield">
+                    <input type="password" autocomplete="off" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" pInputText>
+                    <label>Password</label>
+                </span>
+            </div>
+            <div class="ui-g-12">
+                <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" (click)="onLogin()">
+                    <span class="ui-button-icon-left ui-c fa fa-fw ui-icon-person"></span>
+                    <span class="ui-button-text ui-c">Login</span>
+                </button>
+            </div>
+        </div>
+    </div>
+        </form>
+</div>
+

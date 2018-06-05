@@ -1,0 +1,67 @@
+<h3 class="first"><span style="color: #365073; margin: 15px; font-size: 32px;">Rol Menu Authorities</span></h3>
+
+<p-growl [value]="msgs"></p-growl>
+
+
+<div class="ui-grid ui-grid-responsive ui-grid-pad">
+
+    <div class="uı-grid-row">
+        <div class="ui-grid-col-2">
+            <p-panel header="Roles">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad">
+
+                    <div class="ui-grid-row" *ngFor="let item of fpi; let i = index">
+
+                        <div class="ui-grid-col-2">
+                            <p-radioButton name="group1" [value]="item" [(ngModel)]="selectedFingerIndex" (click)="onRadioButtonClick(i)"></p-radioButton>
+                        </div>
+                        <div class="ui-grid-col-10">
+                            <label class="ui-widget">{{roles[i].Name}}</label>
+                        </div>
+                    </div>
+
+                </div>
+            </p-panel>
+        </div>
+        <div class="ui-grid-col-10">
+            <p-panel header="Menu List">
+                <p-dataTable [value]="vRoleMenus" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20,50]" [responsive]="true"
+                    [stacked]="stacked">
+                    <p-header>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2" style="text-align: left;">
+                                <p-toggleButton onLabel="All" offLabel="Hiçbiri" (onChange)="onSelectAll()" onIcon="ui-icon-done-all" offIcon="ui-icon-block"
+                                    [(ngModel)]="selectAll"></p-toggleButton>
+                            </div>
+                            <div class="ui-grid-col-1">
+                                <button pButton type="button" (click)="onSave()" icon="ui-icon-save" label="Save"></button>
+                            </div>
+                        </div>
+                    </p-header>
+                    <p-footer></p-footer>
+
+                    <p-column [style]="{'width':'10%','text-align':'center'}">
+                        <ng-template pTemplate let-m="rowData">
+                            <p-checkbox [(ngModel)]="m.HasAccess" binary="true"></p-checkbox>
+                        </ng-template>
+                    </p-column>
+
+                    <p-column header="Order" [style]="{'width':'10%', 'max-width':'30px'}">
+                        <ng-template pTemplate let-i="rowIndex">
+                            <div style="text-align: center">{{i + 1}}</div>
+                        </ng-template>
+                    </p-column>
+
+                    <p-column field="ParentName" header="Parent" [filter]="true" [sortable]="true"></p-column>
+                    <p-column field="Name" header="Name" [filter]="true" [sortable]="true"></p-column>
+                    <p-column field="Route" header="Route" [filter]="true" [sortable]="true"></p-column>
+                    <p-column field="OrderNum" header="OrderNum" [filter]="true" [sortable]="true"></p-column>
+                    <p-column field="Controller" header="Controller" [filter]="true" [sortable]="true"></p-column>
+                    <p-column field="Action" header="Action" [filter]="true" [sortable]="true"></p-column>
+                </p-dataTable>
+
+            </p-panel>
+        </div>
+    </div>
+
+</div>

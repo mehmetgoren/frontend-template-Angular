@@ -1,0 +1,104 @@
+<h3 class="first"><span style="color: #365073; margin: 15px; font-size: 32px;">Application User</span></h3>
+
+<p-growl [value]="msgs" [life]="30000"></p-growl>
+
+
+<div class="ui-fluid">
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="card card-w-title">
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input pInputText [(ngModel)]="search.Username" />
+                            <label>User Name</label>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <p-dropdown [(ngModel)]="search.RoleId" [options]="roles" [style]="{'width':'100%'}" [filter]="true"></p-dropdown>
+                    </div>
+
+
+                    <div class="ui-g ui-md-3">
+                        <button pButton type="button" icon="ui-icon-search" label="Search" (click)="onSearch($event)" (keyup.enter)="onSearch()"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="Container100 ui-fluid">
+    <div class="ContainerIndent">
+        <div class="Card ShadowEffect">
+            <h2 class="BigTopic"></h2>
+            <p-dataTable [value]="v_AppUserList" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="total" (onLazyLoad)="loadLazy($event)"
+                [responsive]="true" [stacked]="stacked" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+                <header>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            <button type="button" pButton icon="ui-icon-add" (click)="addNewRecord()" label="Add New Record"></button>
+                        </div>
+                        <div class="ui-grid-col-10">Search Result</div>
+                    </div>
+                </header>
+
+                <p-column header="Order" [style]="{'width':'10%', 'max-width':'30px'}">
+                    <ng-template pTemplate let-i="rowIndex">
+                        <div style="text-align: center">{{i + 1}}</div>
+                    </ng-template>
+                </p-column>
+
+                <p-column field="Username" header="Kullanıcı" [sortable]="true"></p-column>
+                <p-column field="RoleName" header="Rol" [sortable]="true"></p-column>
+                <p-column field="IsAdmin" header="Admin" [sortable]="true"></p-column>
+                <p-column field="LoginCount" header="Giriş Sayısı" [sortable]="true"></p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Roles" responsive="true" [(visible)]="dialogVisible" modal="true" closeOnEscape="true" width="600" height="325">
+
+    <form [formGroup]="myForm" *ngIf="selected" style="height: 300px;">
+        <div class="ui-fluid">
+            <div class="ui-g">
+                <div class="ui-g-12">
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Role</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <p-dropdown [(ngModel)]="selected.RoleId" [formControl]="myForm.controls['RoleId']" [options]="roles" [style]="{'width':'100%'}"
+                            [filter]="true"></p-dropdown>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>User Name</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <input pInputText [(ngModel)]="selected.Username" [formControl]="myForm.controls['Username']" />
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Password</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <input type="password" pPassword [(ngModel)]="selected.Password" [formControl]="myForm.controls['Password']" />
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4"></div>
+                    <div class="ui-g-12 ui-md-8">
+                        <button type="button" pButton (click)="saveNewRecord()" icon="ui-icon-save" label="Save" [disabled]="!myForm.valid"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</p-dialog>

@@ -1,0 +1,41 @@
+<h3 class="first"><span style="color: #365073; margin: 15px; font-size: 32px;">Application Settings</span></h3>
+
+<p-growl [value]="msgs"></p-growl>
+
+
+<div class="Container100 ui-fluid">
+    <div class="ContainerIndent">
+        <div class="Card ShadowEffect">
+            <h2 class="BigTopic"></h2>
+            <p-dataTable [value]="appSettingList" [responsive]="true" [stacked]="stacked">
+                <p-header>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2"><button type="button" pButton icon="ui-icon-save" (click)="save()" label="Save"></button></div>
+                        <div class="ui-grid-col-2"><button type="button" pButton icon="ui-icon-replay" (click)="reset()" label="Reset" class="green-btn"></button></div>
+                        <div class="ui-grid-col-8">Settings</div>
+                    </div>
+                </p-header>
+                <p-footer></p-footer>
+
+                <p-column field="Name" header="Name" [filter]="true" filterMatchMode="contains" [sortable]="true"> </p-column>
+                <p-column header="Value" [filter]="true" filterMatchMode="contains" [sortable]="true">
+                    <ng-template pTemplate let-col let-item="rowData">
+                        <input pInputText [(ngModel)]="item.Value" />
+                    </ng-template>
+                </p-column>
+                <p-column field="DefaultValue" header="Default Value" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                <p-column field="Description" header="Description" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                <p-column header="Module" [filter]="true" filterMatchMode="contains" [sortable]="true">
+                    <ng-template pTemplate let-col let-item="rowData">
+                        <input pInputText [(ngModel)]="item.Module" />
+                    </ng-template>
+                </p-column>
+                <p-column header="Enabled" [sortable]="true">
+                    <ng-template pTemplate let-col let-item="rowData">
+                        <p-checkbox [(ngModel)]="item.Enabled" binary="true"></p-checkbox>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</div>

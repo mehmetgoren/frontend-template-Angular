@@ -1,0 +1,62 @@
+<h3 class="first"><span style="color: #365073; margin: 15px; font-size: 32px;">Rol Tanımları</span></h3>
+
+<p-growl [value]="msgs"></p-growl>
+
+<div style="margin-top:5px;margin-right:50px;">
+    <p-dataTable [value]="roles" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]" [responsive]="true"
+        [stacked]="false" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+        <p-header>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><button type="button" pButton icon="ui-icon-add" (click)="addNewRecord()" label="Add New Record"></button></div>
+                <div class="ui-grid-col-10">Roller</div>
+            </div>
+        </p-header>
+        <footer></footer>
+
+        <p-column header="Order" [style]="{'width':'10%', 'max-width':'30px'}">
+            <ng-template pTemplate let-i="rowIndex">
+                <div style="text-align: center">{{i + 1}}</div>
+            </ng-template>
+        </p-column>
+
+
+        <p-column field="Name" header="Rol"> </p-column>
+        <p-column field="IsAdmin" header="Admin?"></p-column>
+    </p-dataTable>
+
+</div>
+
+
+<p-dialog header="Rol Tanımı" [resizable]="false" [(visible)]="dialogVisible" modal="true" closeOnEscape="true" width="525">
+    <form [formGroup]="myForm" style="height: 120px;">
+        <div class="ui-fluid">
+            <div class="ui-g">
+                <div class="ui-g-12">
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Name</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <input pInputText [(ngModel)]="selected.Name" [formControl]="myForm.controls['Name']" />
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Admin ?</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <p-checkbox binary="true" [(ngModel)]="selected.IsAdmin" [formControl]="myForm.controls['IsAdmin']">
+                        </p-checkbox>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <button type="button" pButton (click)="save()" icon="ui-icon-save" label="Kaydet" [disabled]="!myForm.valid"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+</p-dialog>

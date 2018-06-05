@@ -1,0 +1,4 @@
+<x-login (onSuccessfulLogin)="onSuccessfulLogin($event)" *ngIf="!isAuthenticated">
+    <router-outlet></router-outlet>
+</x-login>
+<x-default *ngIf="isAuthenticated"></x-default>

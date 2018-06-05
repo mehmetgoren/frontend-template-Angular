@@ -1,0 +1,51 @@
+<h3 class="first"><span style="color: #365073; margin: 15px; font-size: 32px;">SQLog Studio. (it just queries a single sqlite file, not the application rdbms)</span></h3>
+
+<p-growl [value]="msgs" [life]="3000"></p-growl>
+
+<div class="ui-fluid">
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="card card-w-title">
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-12">
+                        <p-dropdown [options]="preDefinedQueryList" (onChange)="onPreDefinedChanged($event)" [style]="{'width':'100%'}"></p-dropdown>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-12">
+                        <textarea pInputTextarea [rows]="3" [cols]="30" [(ngModel)]="query" placeholder="Write a query here"></textarea>
+                    </div>
+
+
+                    <div class="ui-g ui-md-3">
+                        <button pButton type="button" icon="ui-icon-search" label="Execute" (click)="onExecuteQuery()" (keyup.enter)="onExecuteQuery()"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="Container100 ui-fluid">
+    <div class="ContainerIndent">
+        <div class="Card ShadowEffect">
+            <h2 class="BigTopic"></h2>
+            <p-dataTable [value]="queryList" [rows]="50" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20,50,100,250]" [responsive]="true" [stacked]="stacked">
+                <p-header>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <label>SQLog Query Results</label>
+                        </div>
+                    </div>
+                </p-header>
+
+                <p-column *ngFor="let field of fields" [field]="field" [header]="field" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+
+            </p-dataTable>
+        </div>
+    </div>
+</div>

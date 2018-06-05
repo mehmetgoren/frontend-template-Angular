@@ -1,0 +1,107 @@
+<p-growl [value]="msgs" [life]="3000"></p-growl>
+
+<div class="card card-w-title">
+    <h1>Server Infos (Powered by ASP.NET SignalR)</h1>
+
+    <div class="ui-grid ui-grid-responsive ui-grid-pad">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-6">
+
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-lg-12">
+                        <div class="card card-w-title">
+                            <div class="ui-g form-group">
+
+                                <div class="ui-g-12 ui-md-12">
+                                    <span class="md-inputfield">
+                                        <input pInputText [(ngModel)]="info.ProcessorCount" readonly />
+                                        <label>Thread Count</label>
+                                    </span>
+                                </div>
+
+
+                                <div class="ui-g-12 ui-md-12">
+                                    <span class="md-inputfield">
+                                        <input pInputText [(ngModel)]="info.CpuUsage" readonly />
+                                        <label>Cpu %</label>
+                                    </span>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12">
+                                    <span class="md-inputfield">
+                                        <input pInputText [(ngModel)]="info.MemoryUsage" readonly />
+                                        <label>Memory %</label>
+                                    </span>
+                                </div>
+
+                                <div class="ui-g-12 ui-md-12">
+                                    <span class="md-inputfield">
+                                        <input pInputText [(ngModel)]="info.DiskUsage" readonly />
+                                        <label>HDD %</label>
+                                    </span>
+                                </div>
+
+
+                                <div class="ui-g-12 ui-md-9">
+                                    <span class="md-inputfield">
+                                        <input pInputText [(ngModel)]="info.ActiveUserCount" readonly />
+                                        <label>Connected User Number</label>
+                                    </span>
+                                </div>
+                                <div class="ui-g-12 ui-md-3">
+                                    <button type="button" pButton icon="ui-icon-face" iconPos="left" label="Show" (click)="showActiveUser()"></button>
+                                </div>
+                                <div class="ui-g-12 ui-md-12">
+                                    <span class="md-inputfield">
+                                        <input pInputText [(ngModel)]="info.OsVersion" readonly />
+                                        <label>OS Version</label>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="ui-grid-col-6">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">
+                        <p-panel header="Memory Usage">
+                            <p-chart #chartRam *ngIf="cmRam" type="pie" [data]="cmRam"></p-chart>
+                        </p-panel>
+                    </div>
+                
+                    <div class="ui-grid-col-6">
+                        <p-panel header="Disk Usage">
+                            <p-chart #chartHdd *ngIf="cmHdd" type="pie" [data]="cmHdd"></p-chart>
+                        </p-panel>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<p-dialog header="Connected User List" [resizable]="false" [(visible)]="connectedUserVisible" modal="true" closeOnEscape="true"
+    width="750" height="450" position="top" (onAfterHide)="onConnectedWindowClosed()">
+    <p-dataTable [value]="connectedUserList" [rows]="10" [paginator]="true" [pageLinks]="10" [rowsPerPageOptions]="[5,10,20,50,100]"
+        [responsive]="true" [stacked]="stacked">
+        <p-header>
+            <label>Connected User List</label>
+        </p-header>
+
+        <p-column header="Order" [style]="{'width':'10%', 'max-width':'30px'}">
+            <ng-template pTemplate let-i="rowIndex">
+                <div style="text-align: center">{{i + 1}}</div>
+            </ng-template>
+        </p-column>
+
+        <p-column field="Username" header="User Name" [filter]="true" [sortable]="true" filterMatchMode="contains"></p-column>
+        <p-column field="RoleName" header="Role" [filter]="true" [sortable]="true" filterMatchMode="contains"></p-column>
+        <p-column field="LoginCount" header="Login Count" [filter]="true" [sortable]="true" filterMatchMode="contains"></p-column>
+    </p-dataTable>
+</p-dialog>
